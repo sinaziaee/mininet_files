@@ -13,12 +13,14 @@
 <br />
 ساخت پوشه با نام پروژه در صورت عدم وجود پوشه از قبل:
 <br />
+
 ```
 def create_project_directory(directory):
     if not os.path.exists(f'results/{directory}'):
         print('Creating project', directory)
         os.makedirs(f'results/{directory}')
 ```
+
 <br />
 ساخت فایل های queue و scanned
 <br />
@@ -39,6 +41,7 @@ def create_data_files(project_name, base_url):
 <br />
 ساخت فایل جدید
 <br />
+
 ```
 def write_file(path, data):
     f = open(path, 'w')
@@ -46,26 +49,32 @@ def write_file(path, data):
     # close the files to avoid data leakage
     f.close()
 ```
+
 <br />
 اضافه کردن  لینک ها به فایل موجود
 <br />
+
 ```
 def append_file(path, data):
     with open(path, 'a') as file:
         # add '\n' to the end of each line
         file.write(data + '\n')
 ```
+
 <br />
 پاک کردن محتوای فایل
 <br />
+
 ```
 def delete_file_content(path):
     with open(path, 'w'):
         pass
 ```
+
 <br />
 خواندن فایل و تبدیل هر خط به یک آیتم از ست
 <br />
+
 ```
 def file_to_set(file_name):
     results = set()
@@ -74,18 +83,22 @@ def file_to_set(file_name):
             results.add(line.replace('\n', ''))
     return results
 ```
+
 <br />
 حرکت درون ست و هر آیتم یک خط جدید درون فایل است
 <br />
+
 ```
 def set_to_file(links, file):
     delete_file_content(file)
     for link in sorted(links):
         append_file(file, link)
 ```
+
 <br />
 پیدا کردن دامنه ی اصلی
 <br />
+
 ```
 def get_domain_name(url):
     try:
@@ -99,9 +112,11 @@ def get_domain_name(url):
     except Exception as e:
         print(e)
 ```
+
 <br />
 پیدا کردن زیر دامنه ها
 <br />
+
 ```
 def get_sub_domain_name(url):
     try:
@@ -110,6 +125,7 @@ def get_sub_domain_name(url):
         print(e)
         return ''
 ```
+
 <br />
 شامل توابعع کمکی مورد نیاز برای ایجاد پروژه - فایل های مختلف - پوشه ها - نوشتن در فایل - ایجاد ست ها و خواندن آن ها - پاک کردن محتوبات فایل - پیدا کردن نام دامنه ی فایل ها و ... است.
 <br />
