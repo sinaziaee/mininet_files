@@ -25,3 +25,9 @@ main.py:
 شامل توابع: create_workers: برای ساخت نخ به تعداد thread های مشخص شده - create_jobs: ارسال فایل به لینک فاندر و پیدا کردن لینک ها (از لیست صف می آید)-
 work: برای انجام پیدا کردن فایل ها
 scan: برای اسکن کردن فایل های موجود درون فایل snanned
+
+منابع:
+
+- https://github.com/maurosoria/dirsearch
+- https://docs.python.org/3/library/urllib.request.html
+- https://icc-aria.ir/courses/%D9%BE%D8%A7%DB%8C%D8%AA%D9%88%D9%86-%D9%BE%DB%8C%D8%B4%D8%B1%D9%81%D8%AA%D9%87/episode/%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D9%86%D9%88%DB%8C%D8%B3%DB%8C-%DA%86%D9%86%D8%AF-%D9%86%D8%AE%DB%8C-multi-threading
