@@ -219,8 +219,45 @@ class Spider:
         return scanner.page_links()
 ```
 
+## link_finder.py:
 
-link_finder.py:
+### کلاس اصلی که از html parser ها ارث بری میکند
+
+```
+class LinkFinder(HTMLParser):
+    def __init__(self, base_url, page_url):
+        super().__init__()
+        self.base_url = base_url
+        self.page_url = page_url
+        self.links = set()  # to store urls in here
+
+    def error(self, message: str):
+        pass
+
+```
+### تابع هندل کردن رشته ها
+
+```
+    def handle_starttag(self, tag: str, attrs):
+        if tag == 'a':
+            for (attribute, value) in attrs:
+                if attribute == 'href':
+                    # if it is a full url it's ok, otherwise we need to convert the relative url to full url
+                    # the url join understands the difference
+                    url = parse.urljoin(self.base_url, value)
+                    self.links.add(url)
+        else:
+            pass
+```
+### برگرداندن لینک های درون صفحه
+
+```
+    def page_links(self):
+        return self.links
+```
+
+## فایل main.py:
+
 <br />
 که شامل منطق اسکن کردن پروژه است و با ایجاد thread ها به اسکن سایت میپردازد 
 <br />
