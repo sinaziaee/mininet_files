@@ -8,11 +8,10 @@
 و آن پوشه را درون پوشه ی result قرار می دهد.
 
 فایل های اصلی این پروژه شامل فایل های general.py - spider.py - link_finder.py - main.py  می شوند که هر کدام را به ترتیب توضیح می دهیم.
-<br />
+
 فایل general.py:
-<br />
-ساخت پوشه با نام پروژه در صورت عدم وجود پوشه از قبل:
-<br />
+
+### ساخت پوشه با نام پروژه در صورت عدم وجود پوشه از قبل:
 
 ```
 def create_project_directory(directory):
@@ -21,9 +20,7 @@ def create_project_directory(directory):
         os.makedirs(f'results/{directory}')
 ```
 
-<br />
-ساخت فایل های queue و scanned
-<br />
+### ساخت فایل های queue و scanned
 
 ‍‍‌```
 def create_data_files(project_name, base_url):
@@ -37,10 +34,7 @@ def create_data_files(project_name, base_url):
         # create an empty scanned file
         write_file(scanned, '')
 ```
-
-<br />
-ساخت فایل جدید
-<br />
+### ساخت فایل جدید
 
 ```
 def write_file(path, data):
