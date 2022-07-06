@@ -3,6 +3,7 @@
 ## پروژه ی Web Path Scanner
 
 ابزار اسکنر برای اسکن کردن فایل های درون یک دایرکتوری استفاده می شود و این کمک را می کند که به محتویات درون پوشه ها پی ببریم
+این را هم باید در نظر داشت که باید لیستی از لینک هایی که میخواهیم را داشته باشیم تا وقتی که با main domain کانکت میشن بتونیم سایت هایی که در حالت عادی بدست نمی آيند را پیدا کنیم
 
 اصول اصلی برنامه ی این پروژه به این صورت است که برای هر سایت دو فایل scanned و  queued ایجاد میکند و درون پوشه ای با نام پروژه قرار می دهد 
 و آن پوشه را درون پوشه ی result قرار می دهد.
@@ -258,19 +259,49 @@ class LinkFinder(HTMLParser):
 
 ## فایل main.py:
 
-<br />
-که شامل منطق اسکن کردن پروژه است و با ایجاد thread ها به اسکن سایت میپردازد 
-<br />
-<br />
-main.py:
-کنار هم قرار دارنده ی تمام فایل های برنامه و منطق پروژه و ایجاد کننده ی thread ها است.
-<br />
-شامل توابع: create_workers: برای ساخت نخ به تعداد thread های مشخص شده - create_jobs: ارسال فایل به لینک فاندر و پیدا کردن لینک ها (از لیست صف می آید)-
-work: برای انجام پیدا کردن فایل ها
-scan: برای اسکن کردن فایل های موجود درون فایل snanned
-<br />
-<br />
-منابع:
+### ساخت نخ به تعداد مشخص شده 
+```
+def create_workers():
+    for _ in range(NUMBER_OF_THREADS):
+        t = threading.Thread(target=work)
+        # Making the thread a daemon thread to make sure that it terminates when the main thread terminates
+        t.daemon = True
+        t.start()
+```
+### اجرای کار بعدی توی صف
+```
+def work():
+    while True:
+        url = queue.get()
+        Spider.scan_page(thread_name=threading.current_thread().name, page_url=url)
+        queue.task_done()
+```
+### هر آیتم درون صف یک job است
+```
+def create_jobs():
+    for link in file_to_set(QUEUE_FILE):
+        queue.put(link)
+    # to avoid messing with each other
+    queue.join()
+    scan()
+```
+### چک کن که آیتمی توی لیست هست یا نه
+```
+def scan():
+    queued_links = file_to_set(QUEUE_FILE)
+    if len(queued_links) > 0:
+        print(str(len(queued_links)), 'links in the queue')
+        create_jobs()
+```
+### اضافی کردن لیستی از مواردی که میخواهیم سرپ بشن علاوه بر مواردی که به صورت اتوماتیک سرچ میشن
+```
+def append_list_to_queue(main_domain, random_links):
+    if len(random_links) != 0:
+        for link in random_links:
+            append_file(QUEUE_FILE, f'{main_domain}{link}/')
+```
+
+## منابع:
 
 - https://github.com/maurosoria/dirsearch
 - https://docs.python.org/3/library/urllib.request.html
