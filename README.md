@@ -34,6 +34,7 @@ def create_data_files(project_name, base_url):
         # create an empty scanned file
         write_file(scanned, '')
 ```
+
 ### ساخت فایل جدید
 
 ```
