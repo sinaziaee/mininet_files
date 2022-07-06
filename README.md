@@ -10,6 +10,7 @@
 فایل های اصلی این پروژه شامل فایل های general.py - spider.py - link_finder.py - main.py  می شوند که هر کدام را به ترتیب توضیح می دهیم.
 <br />
 فایل general.py:
+ساخت پوشه با نام پروژه در صورت عدم وجود پوشه از قبل:
 ```
 def create_project_directory(directory):
     if not os.path.exists(f'results/{directory}'):
@@ -17,6 +18,79 @@ def create_project_directory(directory):
         os.makedirs(f'results/{directory}')
 ```
 <br />
+ساخت فایل های queue و scanned
+‍‍‌```
+def create_data_files(project_name, base_url):
+    queue = f'results/{project_name}/queue.txt'
+    scanned = f'results/{project_name}/scanned.txt'
+    # check if file exits
+    if not os.path.isfile(queue):
+        # do not create an empty queue as it avoids the program to start :)
+        write_file(queue, base_url)
+    if not os.path.isfile(scanned):
+        # create an empty scanned file
+        write_file(scanned, '')
+```
+ساخت فایل جدید
+```
+def write_file(path, data):
+    f = open(path, 'w')
+    f.write(data)
+    # close the files to avoid data leakage
+    f.close()
+```
+اضافه کردن  لینک ها به فایل موجود
+```
+def append_file(path, data):
+    with open(path, 'a') as file:
+        # add '\n' to the end of each line
+        file.write(data + '\n')
+```
+پاک کردن محتوای فایل
+```
+def delete_file_content(path):
+    with open(path, 'w'):
+        pass
+```
+خواندن فایل و تبدیل هر خط به یک آیتم از ست
+```
+def file_to_set(file_name):
+    results = set()
+    with open(file_name, 'rt') as f:
+        for line in f:
+            results.add(line.replace('\n', ''))
+    return results
+```
+حرکت درون ست و هر آیتم یک خط جدید درون فایل است
+```
+def set_to_file(links, file):
+    delete_file_content(file)
+    for link in sorted(links):
+        append_file(file, link)
+```
+پیدا کردن دامنه ی اصلی
+```
+def get_domain_name(url):
+    try:
+        # Todo: check the stu.ac.ir instead of licotab.com
+        results = get_sub_domain_name(url).split('.')
+        if len(get_sub_domain_name(url).split('.')) == 3:
+            return results[-2] + '.' + results[-1]
+        elif len(get_sub_domain_name(url).split('.')) >= 3:
+            return results[-3] + '.' + results[-2]
+        return results[-2] + '.' + results[-1]
+    except Exception as e:
+        print(e)
+```
+پیدا کردن زیر دامنه ها
+```
+def get_sub_domain_name(url):
+    try:
+        return urlparse(url).netloc  # (network location)
+    except Exception as e:
+        print(e)
+        return ''
+```
 شامل توابعع کمکی مورد نیاز برای ایجاد پروژه - فایل های مختلف - پوشه ها - نوشتن در فایل - ایجاد ست ها و خواندن آن ها - پاک کردن محتوبات فایل - پیدا کردن نام دامنه ی فایل ها و ... است.
 <br />
 <br />
