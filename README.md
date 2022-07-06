@@ -14,15 +14,18 @@
 ### ساخت پوشه با نام پروژه در صورت عدم وجود پوشه از قبل:
 
 ```
+
 def create_project_directory(directory):
     if not os.path.exists(f'results/{directory}'):
         print('Creating project', directory)
         os.makedirs(f'results/{directory}')
+
 ```
 
 ### ساخت فایل های queue و scanned
 
 ‍‍‌```
+
 def create_data_files(project_name, base_url):
     queue = f'results/{project_name}/queue.txt'
     scanned = f'results/{project_name}/scanned.txt'
@@ -33,6 +36,7 @@ def create_data_files(project_name, base_url):
     if not os.path.isfile(scanned):
         # create an empty scanned file
         write_file(scanned, '')
+
 ```
 
 ### ساخت فایل جدید
