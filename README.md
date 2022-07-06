@@ -10,6 +10,12 @@
 فایل های اصلی این پروژه شامل فایل های general.py - spider.py - link_finder.py - main.py  می شوند که هر کدام را به ترتیب توضیح می دهیم.
 <br />
 فایل general.py:
+```
+def create_project_directory(directory):
+    if not os.path.exists(f'results/{directory}'):
+        print('Creating project', directory)
+        os.makedirs(f'results/{directory}')
+```
 <br />
 شامل توابعع کمکی مورد نیاز برای ایجاد پروژه - فایل های مختلف - پوشه ها - نوشتن در فایل - ایجاد ست ها و خواندن آن ها - پاک کردن محتوبات فایل - پیدا کردن نام دامنه ی فایل ها و ... است.
 <br />
