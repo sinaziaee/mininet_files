@@ -49,9 +49,7 @@ def write_file(path, data):
     f.close()
 ```
 
-<br />
-اضافه کردن  لینک ها به فایل موجود
-<br />
+### اضافه کردن  لینک ها به فایل موجود
 
 ```
 def append_file(path, data):
@@ -60,9 +58,9 @@ def append_file(path, data):
         file.write(data + '\n')
 ```
 
-<br />
-پاک کردن محتوای فایل
-<br />
+
+### پاک کردن محتوای فایل
+
 
 ```
 def delete_file_content(path):
@@ -70,9 +68,7 @@ def delete_file_content(path):
         pass
 ```
 
-<br />
-خواندن فایل و تبدیل هر خط به یک آیتم از ست
-<br />
+### خواندن فایل و تبدیل هر خط به یک آیتم از ست
 
 ```
 def file_to_set(file_name):
@@ -83,9 +79,8 @@ def file_to_set(file_name):
     return results
 ```
 
-<br />
-حرکت درون ست و هر آیتم یک خط جدید درون فایل است
-<br />
+### حرکت درون ست و هر آیتم یک خط جدید درون فایل است
+
 
 ```
 def set_to_file(links, file):
@@ -94,9 +89,8 @@ def set_to_file(links, file):
         append_file(file, link)
 ```
 
-<br />
-پیدا کردن دامنه ی اصلی
-<br />
+### پیدا کردن دامنه ی اصلی
+
 
 ```
 def get_domain_name(url):
@@ -112,9 +106,8 @@ def get_domain_name(url):
         print(e)
 ```
 
-<br />
-پیدا کردن زیر دامنه ها
-<br />
+### پیدا کردن زیر دامنه ها
+
 
 ```
 def get_sub_domain_name(url):
