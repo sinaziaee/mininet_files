@@ -25,7 +25,7 @@ def create_project_directory(directory):
 ### ساخت فایل های queue و scanned
 
 ‍‍‌```
-
+```
 def create_data_files(project_name, base_url):
     queue = f'results/{project_name}/queue.txt'
     scanned = f'results/{project_name}/scanned.txt'
